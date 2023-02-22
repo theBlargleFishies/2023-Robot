@@ -10,7 +10,7 @@ public class Intake extends SubsystemBase {
   public Intake() {}
 
   @Override
-  public void periodic() {}
+  public void periodic() { }
 
   public void intakeball() {
     Intake.set(1);

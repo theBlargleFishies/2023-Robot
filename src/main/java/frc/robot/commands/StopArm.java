@@ -15,7 +15,9 @@ public class StopArm extends CommandBase {
   public void initialize() {}
 
   @Override
-  public void execute() {}
+  public void execute() {
+    arm.stoparm();
+  }
 
   @Override
   public void end(boolean interrupted) {}

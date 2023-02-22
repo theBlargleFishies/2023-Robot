@@ -20,11 +20,13 @@ public class IntakeBall extends CommandBase {
   }
 
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    intake.stopintake();
+  }
 
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 
 }

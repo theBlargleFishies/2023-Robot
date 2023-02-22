@@ -12,8 +12,13 @@ public final class Constants {
   public static final int RIGHT_ARM_MOTOR = 9;
   public static final int LEFT_ARM_MOTOR = 8;
   public static final int INTAKE_MOTOR = 7;
+  public static final int POWER_DISTRIBUTION = 10;
+  
+  public static final int TOP_SWITCH = 0;
+  public static final int BOTTOM_SWITCH = 1;
 
   public static final int DRIVER_CONTROLLER = 0;
+  public static final int ARM_CONTROLLER = 2;
   public static final int PNEUMATICS_MODULE = 1;
 
   public static final double WHEEL_DIAMETER = 6.0;

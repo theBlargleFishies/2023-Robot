@@ -17,6 +17,7 @@ public class DriveTrain extends SubsystemBase {
   DifferentialDrive dDrive;
   double throttle_d;
   double turn_d;
+  double arm_a;
 
   private static CANSparkMax leftFront;
   private static CANSparkMax leftBack;
@@ -38,7 +39,7 @@ public class DriveTrain extends SubsystemBase {
       rightBack.setIdleMode(IdleMode.kCoast);
       rightFront.setIdleMode(IdleMode.kCoast);
     }
-    
+
   }
 
   public DriveTrain() {

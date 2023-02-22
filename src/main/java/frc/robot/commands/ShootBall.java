@@ -20,7 +20,9 @@ public class ShootBall extends CommandBase {
   public void execute() {}
 
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    shoot.stopintake();
+  }
 
   @Override
   public boolean isFinished() {
