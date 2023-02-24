@@ -4,11 +4,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Arm;
 
 public class StopArm extends CommandBase {
-  Arm arm;
+  private Arm arm;
 
-  public StopArm(Arm a) {
-    arm = a;
-    addRequirements(arm);
+  public StopArm(Arm arm) {
+    this.arm = arm;
+    addRequirements(this.arm);
   }
 
   @Override
@@ -16,7 +16,7 @@ public class StopArm extends CommandBase {
 
   @Override
   public void execute() {
-    arm.stoparm();
+    this.arm.stopArm();
   }
 
   @Override

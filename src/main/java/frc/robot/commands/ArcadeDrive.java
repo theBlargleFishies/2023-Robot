@@ -5,10 +5,11 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveTrain;
 
 public class ArcadeDrive extends CommandBase {
-  private final DriveTrain dTrain;
-  public ArcadeDrive(DriveTrain drTrain) {
-    dTrain = drTrain;
-    addRequirements(dTrain);
+  private final DriveTrain driveTrain;
+  
+  public ArcadeDrive(DriveTrain driveTrain) {
+    this.driveTrain = driveTrain;
+    addRequirements(driveTrain);
   }
 
   @Override
@@ -16,7 +17,7 @@ public class ArcadeDrive extends CommandBase {
 
   @Override
   public void execute() {
-    dTrain.arcadedrive(RobotContainer.driverController);
+    this.driveTrain.arcadeDrive(RobotContainer.driverController);
   }
 
   @Override

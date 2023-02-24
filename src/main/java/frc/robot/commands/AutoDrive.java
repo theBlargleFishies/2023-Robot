@@ -4,29 +4,29 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
 
 public class AutoDrive extends CommandBase {
-  DriveTrain aTrain;
-
+  
+  private DriveTrain driveTrain;
   private boolean finished = false;
-  private static double leftdistance;
-  private double rightdistance;
-
-  double s;
-  public AutoDrive(DriveTrain d, double speed) {
-    aTrain = d;
-    s = speed;
-    addRequirements(aTrain);
+  private double leftDistance;
+  private double rightDistance;
+  private double speed;
+  
+  public AutoDrive(DriveTrain driveTrain, double speed) {
+    this.driveTrain = driveTrain;
+    this.speed = speed;
+    addRequirements(driveTrain);
   }
 
   @Override
   public void initialize() {
-    aTrain.encoderreset();
-    leftdistance = 0;
-    rightdistance = 0;
+    this.driveTrain.encoderReset();
+    this.leftDistance = 0;
+    this.rightDistance = 0;
 
-    while (leftdistance < 207 && rightdistance < 207) {
-      leftdistance = Math.abs(DriveTrain.getleftdistance());
-      rightdistance = Math.abs(DriveTrain.getrightdistance());
-      aTrain.setdrive(s);
+    while (this.leftDistance < 207 && this.rightDistance < 207) {
+      this.leftDistance = Math.abs(this.driveTrain.getLeftDistance());
+      this.rightDistance = Math.abs(this.driveTrain.getRightDistance());
+      this.driveTrain.setDrive(this.speed);
     }
 
     finished = true;

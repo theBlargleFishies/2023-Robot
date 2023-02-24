@@ -2,18 +2,12 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Arm;
-import edu.wpi.first.wpilibj.DigitalSource;
 
 public class ArmOut extends CommandBase {
-  Arm arm;
-  double rsetpoint;
-  double lsetpoint;
-  public ArmOut(Arm a, double rdistance, double ldistance) {
-    arm = a;
+  private Arm arm;
+  public ArmOut(Arm arm) {
+    this.arm = arm;
     addRequirements(arm);
-    lsetpoint = ldistance;
-    rsetpoint = rdistance;
-
   }
 
   @Override
@@ -21,12 +15,12 @@ public class ArmOut extends CommandBase {
 
   @Override
   public void execute() {
-    arm.armout();
+    this.arm.armOut();
    }
 
   @Override
   public void end(boolean interrupted) {
-    arm.stoparm();
+    this.arm.stopArm();
   }
 
   @Override

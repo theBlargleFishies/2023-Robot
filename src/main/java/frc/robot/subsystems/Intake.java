@@ -6,22 +6,25 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Intake extends SubsystemBase {
-  private static CANSparkMax Intake = new CANSparkMax(Constants.INTAKE_MOTOR, MotorType.kBrushless);
-  public Intake() {}
+  private CANSparkMax intake;
+
+  public Intake() {
+    this.intake = new CANSparkMax(Constants.INTAKE_MOTOR, MotorType.kBrushless);
+  }
 
   @Override
   public void periodic() { }
 
-  public void intakeball() {
-    Intake.set(1);
+  public void intakeBall() {
+    this.intake.set(1);
   }
 
-  public void shootball() {
-    Intake.set(-1);
+  public void shootBall() {
+    this.intake.set(-1);
   }
 
-  public void stopintake() {
-    Intake.stopMotor();
+  public void stopIntake() {
+    this.intake.stopMotor();
   }
 
 }

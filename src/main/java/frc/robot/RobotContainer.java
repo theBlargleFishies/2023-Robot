@@ -7,23 +7,23 @@ import frc.robot.commands.AutoDrive;
 import frc.robot.commands.IntakeBall;
 import frc.robot.commands.ShootBall;
 import frc.robot.commands.StopArm;
-import frc.robot.commands.StopIntake;
 import frc.robot.commands.TestGroup;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
-//import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.XboxController;
-//import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 public class RobotContainer {
+  private final double DRIVE_SPEED = 0.5;
+
   public static XboxController driverController;
   public static XboxController armController;
   private final DriveTrain ourTrain;
   private final Arm ourArm;
+
   private final ArcadeDrive ourDrive;
 
   public final TestGroup auto;
@@ -32,7 +32,6 @@ public class RobotContainer {
   private final Intake ourIntake;
   private final IntakeBall ballIn;
   private final ShootBall ballOut;
-  private final StopIntake stopIn;
   private final AutoDrive test;
 
   Trigger rightBumper;
@@ -52,13 +51,12 @@ public class RobotContainer {
     ourIntake = new Intake();
 
     ballOut = new ShootBall(ourIntake);
-    auto = new TestGroup(ourTrain, 0.5);
+    auto = new TestGroup(ourTrain, this.DRIVE_SPEED);
 
-    up = new ArmOut(ourArm,0,0);
+    up = new ArmOut(ourArm);
     down = new ArmIn(ourArm);
     ballIn = new IntakeBall(ourIntake);
-    stopIn = new StopIntake(ourIntake);
-    test = new AutoDrive(ourTrain, -0.5);
+    test = new AutoDrive(ourTrain, -this.DRIVE_SPEED);
     StopArm armStop = new StopArm(ourArm);
 
     ourTrain.setDefaultCommand(ourDrive);

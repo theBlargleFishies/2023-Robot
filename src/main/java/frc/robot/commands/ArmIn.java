@@ -1,16 +1,14 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.Arm;
 
 public class ArmIn extends CommandBase {
-  Arm arm;
-  double distance;
+  private Arm arm;
 
-  public ArmIn(Arm a) {
-    arm = a;
-    addRequirements(arm);
+  public ArmIn(Arm arm) {
+    this.arm = arm;
+    addRequirements(this.arm);
 
   }
 
@@ -18,12 +16,11 @@ public class ArmIn extends CommandBase {
   public void initialize() {}
 
   @Override
-  public void execute() {
-     }
+  public void execute() {}
 
   @Override
   public void end(boolean interrupted) {
-    arm.stoparm();
+    this.arm.stopArm();
   }
 
   @Override

@@ -4,11 +4,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Intake;
 
 public class IntakeBall extends CommandBase {
-  Intake intake;
+  private Intake intake;
 
-  public IntakeBall(Intake n) {
-    intake = n;
-    addRequirements(intake);
+  public IntakeBall(Intake intake) {
+    this.intake = intake;
+    addRequirements(this.intake);
   }
 
   @Override
@@ -16,12 +16,12 @@ public class IntakeBall extends CommandBase {
 
   @Override
   public void execute() {
-    intake.intakeball();
+    intake.intakeBall();
   }
 
   @Override
   public void end(boolean interrupted) {
-    intake.stopintake();
+    intake.stopIntake();
   }
 
   @Override

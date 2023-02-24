@@ -4,11 +4,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Intake;
 
 public class StopIntake extends CommandBase {
-  Intake stop;
+  private Intake intake;
 
-  public StopIntake(Intake st) {
-    stop = st;
-    addRequirements(stop);
+  public StopIntake(Intake intake) {
+    this.intake = intake;
+    addRequirements(this.intake);
   }
 
   @Override
@@ -16,7 +16,7 @@ public class StopIntake extends CommandBase {
 
   @Override
   public void execute() {
-    stop.stopintake();
+    this.intake.stopIntake();
   }
 
   @Override
