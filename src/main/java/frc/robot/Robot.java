@@ -1,23 +1,26 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-//import frc.robot.subsystems.DriveTrain;
+import frc.robot.RobotContainer.AutoMode;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
+  private final SendableChooser<AutoMode> m_auto_chooser = new SendableChooser<>();
 
   @Override
   public void robotInit() {
+    m_auto_chooser.setDefaultOption("Balance", AutoMode.BALANCE);
+    m_auto_chooser.addOption("Shoot and Balance", AutoMode.BALANCE)
     m_robotContainer = new RobotContainer();
   }
 
   @Override
   public void robotPeriodic() {
-    CommandScheduler.getInstance().run();
+   CommandScheduler.getInstance().run();
   }
 
   @Override
@@ -28,11 +31,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
-    }
-
+    m_robotContainer.setAutoMode(m_auto_chooser.getSelected());
   }
 
   @Override

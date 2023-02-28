@@ -16,7 +16,9 @@ public class ArmIn extends CommandBase {
   public void initialize() {}
 
   @Override
-  public void execute() {}
+  public void execute() {
+    this.arm.armIn();
+  }
 
   @Override
   public void end(boolean interrupted) {

@@ -1,10 +1,13 @@
 package frc.robot;
 
+import frc.robot.Constants.AutoMode;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.ArmIn;
 import frc.robot.commands.ArmOut;
 import frc.robot.commands.AutoDrive;
+import frc.robot.commands.Balance;
 import frc.robot.commands.IntakeBall;
+import frc.robot.commands.ShootAndBalance;
 import frc.robot.commands.ShootBall;
 import frc.robot.commands.StopArm;
 import frc.robot.commands.TestGroup;
@@ -17,7 +20,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 public class RobotContainer {
-  private final double DRIVE_SPEED = 0.5;
+  // private final double DRIVE_SPEED = 0.5;
 
   public static XboxController driverController;
   public static XboxController armController;
@@ -26,13 +29,15 @@ public class RobotContainer {
 
   private final ArcadeDrive ourDrive;
 
-  public final TestGroup auto;
+  // public final TestGroup auto;
   private final ArmOut up;
   private final ArmIn down;
   private final Intake ourIntake;
   private final IntakeBall ballIn;
   private final ShootBall ballOut;
-  private final AutoDrive test;
+  private final Balance balanceCommand;
+  // () private final AutoDrive test;
+  private AutoMode autoMode;
 
   Trigger rightBumper;
   Trigger leftBumper;
@@ -40,10 +45,13 @@ public class RobotContainer {
   Trigger buttonB;
   Trigger buttonX;
   Trigger buttonY;
+  Trigger driverStartButton;
 
   public RobotContainer() {
     driverController = new XboxController(Constants.DRIVER_CONTROLLER);
     armController = new XboxController(Constants.ARM_CONTROLLER);
+
+    autoMode = AutoMode.BALANCE;
 
     ourTrain = new DriveTrain();
     ourDrive = new ArcadeDrive(ourTrain);
@@ -51,17 +59,20 @@ public class RobotContainer {
     ourIntake = new Intake();
 
     ballOut = new ShootBall(ourIntake);
-    auto = new TestGroup(ourTrain, this.DRIVE_SPEED);
+    balanceCommand = new Balance(this.ourTrain, true);
+    // auto = new TestGroup(ourTrain, this.DRIVE_SPEED);
 
     up = new ArmOut(ourArm);
     down = new ArmIn(ourArm);
     ballIn = new IntakeBall(ourIntake);
-    test = new AutoDrive(ourTrain, -this.DRIVE_SPEED);
+    // test = new AutoDrive(ourTrain, -this.DRIVE_SPEED);
     StopArm armStop = new StopArm(ourArm);
 
     ourTrain.setDefaultCommand(ourDrive);
-    //ourArm.setDefaultCommand(armStop);
-   // ourIntake.setDefaultCommand(stopIn);
+    // ourArm.setDefaultCommand(armStop);
+    // ourIntake.setDefaultCommand(stopIn);
+
+    // ARM CONTROLLER COMMANDS
     rightBumper = new JoystickButton(armController, XboxController.Button.kRightBumper.value);
     leftBumper = new JoystickButton(armController, XboxController.Button.kLeftBumper.value);
     buttonA = new JoystickButton(armController, XboxController.Button.kA.value);
@@ -74,14 +85,34 @@ public class RobotContainer {
     rightBumper.whileTrue(up);
     buttonA.whileTrue(ballIn);
     buttonX.whileTrue(ballOut);
-    //buttonB.whileTrue(stopIn);
+    // buttonB.whileTrue(stopIn);
     buttonY.onTrue(armStop);
+
+    // DRIVER CONTROLLER
+    driverStartButton = new JoystickButton(driverController, XboxController.Button.kStart.value);
+    driverStartButton.onTrue(balanceCommand);
   }
 
-  private void configureBindings() {}
+  private void configureBindings() {
+  }
 
   public Command getAutonomousCommand() {
-    return test;
+    switch (autoMode) {
+      case BALANCE:
+        return new Balance(this.ourTrain, false);
+      case SHOOT_BALANCE:
+        return new ShootAndBalance(this.ourTrain);
+      default:
+        return new Balance(this.ourTrain, false);
+    }
+  }
+
+  public AutoMode getAutoMode() {
+    return this.autoMode;
+  }
+
+  public void setAutoMode(AutoMode newAutoMode) {
+    this.autoMode = newAutoMode;
   }
 
 }

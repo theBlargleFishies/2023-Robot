@@ -20,6 +20,8 @@ public class Arm extends SubsystemBase {
     this.leftArm.setInverted(true); 
     this.rightArm.setSmartCurrentLimit(15);
     this.leftArm.setSmartCurrentLimit(15);
+    this.leftArmEncoder = this.leftArm.getEncoder();
+    this.rightArmEncoder = this.rightArm.getEncoder();
   }
 
   @Override
