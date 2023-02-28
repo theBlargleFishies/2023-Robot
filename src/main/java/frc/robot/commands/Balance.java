@@ -9,9 +9,8 @@ public class Balance extends CommandBase {
   private boolean isTeleop;
   private boolean finished;
 
-  public Balance(DriveTrain driveTrain, boolean isTeleop) {
+  public Balance(DriveTrain driveTrain) {
     this.driveTrain = driveTrain;
-    this.isTeleop = false;
     this.finished = false;
     addRequirements(driveTrain);
   }
@@ -33,6 +32,6 @@ public class Balance extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return this.isTeleop && this.finished;
+    return false;
   }
 }
