@@ -1,5 +1,6 @@
 package frc.robot;
 
+import frc.robot.Constants.AutoMode;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.ArmIn;
 import frc.robot.commands.ArmOut;
@@ -24,6 +25,8 @@ public class RobotContainer {
   private final Arm ourArm;
 
   private final ArcadeDrive ourDrive;
+
+  private AutoMode autoMode;
 
   // public final TestGroup auto;
   private final ArmOut up;
@@ -87,6 +90,14 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
     return balance;
+  }
+
+  public AutoMode getAutoMode() {
+    return this.autoMode;
+  }
+
+  public void setAutoMode(AutoMode newAutoMode) {
+    this.autoMode = newAutoMode;
   }
 
 }

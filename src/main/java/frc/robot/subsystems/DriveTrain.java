@@ -139,19 +139,13 @@ public class DriveTrain extends SubsystemBase {
     double driveOut = ourPID.calculate(angle);
 
     if (angle < -1.0) {
-      System.out.println(" im forwards fam");
-
       leftFront.set(driveOut);
       rightFront.set(driveOut);
     } else if (angle > 1.0) {
-
       leftFront.set(driveOut);
       rightFront.set(driveOut);
-      System.out.println(" my life is backwards");
     } else {
       driveStop();
-      System.out.println("all's chill here");
     }
-
   }
 }

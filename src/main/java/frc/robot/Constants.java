@@ -3,7 +3,8 @@ package frc.robot;
 public final class Constants {
   public enum AutoMode {
     BALANCE,
-    SHOOT_BALANCE
+    SHOOT_BALANCE,
+    MULTI_SHOOT_BALANCE
   }
 
   public static final int FRONT_RIGHT_MOTOR = 2;

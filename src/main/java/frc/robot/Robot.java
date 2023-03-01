@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.RobotContainer.AutoMode;
+import frc.robot.Constants.AutoMode;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
@@ -13,40 +13,45 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
-    m_auto_chooser.setDefaultOption("Balance", AutoMode.BALANCE);
-    m_auto_chooser.addOption("Shoot and Balance", AutoMode.BALANCE)
-    m_robotContainer = new RobotContainer();
+    this.m_auto_chooser.setDefaultOption("Balance", AutoMode.BALANCE);
+    this.m_auto_chooser.addOption("Shoot and Balance", AutoMode.SHOOT_BALANCE);
+    this.m_auto_chooser.addOption("Score twice and Balance", AutoMode.MULTI_SHOOT_BALANCE);
+    this.m_robotContainer = new RobotContainer();
   }
 
   @Override
   public void robotPeriodic() {
-   CommandScheduler.getInstance().run();
+    CommandScheduler.getInstance().run();
   }
 
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+  }
 
   @Override
-  public void disabledPeriodic() {}
+  public void disabledPeriodic() {
+  }
 
   @Override
   public void autonomousInit() {
-    m_robotContainer.setAutoMode(m_auto_chooser.getSelected());
+    this.m_robotContainer.setAutoMode(m_auto_chooser.getSelected());
   }
 
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+  }
 
   @Override
   public void teleopInit() {
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.cancel();
+    if (this.m_autonomousCommand != null) {
+      this.m_autonomousCommand.cancel();
     }
-    
+
   }
 
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+  }
 
   @Override
   public void testInit() {
@@ -54,12 +59,15 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void testPeriodic() {}
+  public void testPeriodic() {
+  }
 
   @Override
-  public void simulationInit() {}
+  public void simulationInit() {
+  }
 
   @Override
-  public void simulationPeriodic() {}
+  public void simulationPeriodic() {
+  }
 
 }
