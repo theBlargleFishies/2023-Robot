@@ -26,7 +26,7 @@ public class Balance extends CommandBase {
   private boolean isTeleop;
   private boolean finished;
 
-  public Balance(DriveTrain driveTrain, boolean isTeleop) {
+ /* public Balance(DriveTrain driveTrain, boolean isTeleop) {
     this.trajectoryPath = PathPlanner.loadPath("balance_only", new PathConstraints(this.TRAJECTORY_PATH_MAX_VEL, this.TRAJECTORY_PATH_MAX_ACC));
     this.trajectoryPathState = (PathPlannerState) this.trajectoryPath.sample(TRAJECTORY_PATH_SAMPLE_RATE);
     //this.fullAuto = autoBuilder.fullAuto(this.trajectoryPath);
@@ -34,6 +34,10 @@ public class Balance extends CommandBase {
     this.finished = false;
 
     addRequirements(driveTrain);
+  }*/
+  public Balance(DriveTrain drivetrain) {
+    this.driveTrain = drivetrain;
+    addRequirements(drivetrain);
   }
 
   @Override
@@ -44,7 +48,7 @@ public class Balance extends CommandBase {
   public void execute() {
     // Balance robot
     driveTrain.balanceRobot();
-    this.finished = true;
+    //this.finished = true;
   }
 
   @Override
@@ -54,6 +58,7 @@ public class Balance extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return this.isTeleop && this.finished;
+    return false;
+    //return this.isTeleop && this.finished;
   }
 }

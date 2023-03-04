@@ -6,12 +6,16 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import edu.wpi.first.wpilibj.DigitalInput;
 
 public class Arm extends SubsystemBase {
   private CANSparkMax rightArm;
   private CANSparkMax leftArm;
   private RelativeEncoder leftArmEncoder;
   private RelativeEncoder rightArmEncoder;
+  public DigitalInput limSwitch;
+  public double maxInRight;
+  public double maxInLeft;
 
   public Arm() {
     this.rightArm = new CANSparkMax(Constants.RIGHT_ARM_MOTOR, MotorType.kBrushless);
@@ -22,12 +26,17 @@ public class Arm extends SubsystemBase {
     this.leftArm.setSmartCurrentLimit(15);
     this.leftArmEncoder = this.leftArm.getEncoder();
     this.rightArmEncoder = this.rightArm.getEncoder();
+    this.limSwitch = new DigitalInput(0);
+
   }
 
   @Override
   public void periodic() {
     SmartDashboard.putNumber("left arm motor", leftArmEncoder.getPosition());
     SmartDashboard.putNumber("right arm motor", rightArmEncoder.getPosition());
+    SmartDashboard.putBoolean("Limit Switch", limSwitch.get());
+    SmartDashboard.putNumber("Max right", maxInRight);
+    SmartDashboard.putNumber("Max Left", maxInLeft);
   }
 
   public void armOut() {
@@ -36,15 +45,20 @@ public class Arm extends SubsystemBase {
   }
 
   public void armIn() {
-    leftArm.set(-0.3);
-    rightArm.set(-0.3);
+    if (limSwitch.get()) {
+      maxInRight = getrightarmcounts();
+      maxInLeft = getleftarmcounts(); 
+    }
+      leftArm.set(-0.3);
+      rightArm.set(-0.3);
+    
   }
   
   public void stopArm() {
     leftArm.stopMotor();
     rightArm.stopMotor();
   }
- /* public double getleftarmcounts() {
+ public double getleftarmcounts() {
     
     return leftArmEncoder.getPosition();
     
@@ -53,5 +67,5 @@ public class Arm extends SubsystemBase {
     
     return rightArmEncoder.getPosition();
 
-  }*/
+  }
 }

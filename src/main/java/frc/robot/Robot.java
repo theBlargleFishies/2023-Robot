@@ -34,7 +34,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    this.m_robotContainer.setAutoMode(m_auto_chooser.getSelected());
+    //this.m_robotContainer.setAutoMode(m_auto_chooser.getSelected());
+    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
   }
 
   @Override

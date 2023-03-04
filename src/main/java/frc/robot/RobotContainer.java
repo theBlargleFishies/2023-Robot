@@ -4,8 +4,12 @@ import frc.robot.Constants.AutoMode;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.ArmIn;
 import frc.robot.commands.ArmOut;
+import frc.robot.commands.AutoDrive;
 import frc.robot.commands.Balance;
 import frc.robot.commands.IntakeBall;
+import frc.robot.commands.ManualArmIn;
+import frc.robot.commands.ManualArmOut;
+import frc.robot.commands.ShootAndBalance;
 import frc.robot.commands.ShootBall;
 import frc.robot.commands.StopArm;
 import frc.robot.subsystems.Arm;
@@ -23,18 +27,22 @@ public class RobotContainer {
   public static XboxController armController;
   private final DriveTrain ourTrain;
   private final Arm ourArm;
+  private final Balance balance;
 
   private final ArcadeDrive ourDrive;
 
   private AutoMode autoMode;
 
   // public final TestGroup auto;
-  private final ArmOut up;
-  private final ArmIn down;
+  private final ManualArmOut up;
+  private final ManualArmIn down;
   private final Intake ourIntake;
   private final IntakeBall ballIn;
   private final ShootBall ballOut;
-  private final Balance balance;
+  private Auto auto;
+  private ShootAndBalance auto1;
+  private AutoDrive auto2;
+
   // () private final AutoDrive test;
 
   Trigger rightBumper;
@@ -55,14 +63,16 @@ public class RobotContainer {
     ourIntake = new Intake();
 
     ballOut = new ShootBall(ourIntake);
-    balance = new Balance(this.ourTrain);
     // auto = new TestGroup(ourTrain, this.DRIVE_SPEED);
 
-    up = new ArmOut(ourArm);
-    down = new ArmIn(ourArm);
+    up = new ManualArmOut(ourArm);
+    down = new ManualArmIn(ourArm);
     ballIn = new IntakeBall(ourIntake);
     // test = new AutoDrive(ourTrain, -this.DRIVE_SPEED);
     StopArm armStop = new StopArm(ourArm);
+    auto1 = new ShootAndBalance(ourTrain, ourArm, ourIntake);
+    auto2 = new AutoDrive(ourTrain, 0.4, 37);
+    balance = new Balance(ourTrain);
 
     ourTrain.setDefaultCommand(ourDrive);
     // ourArm.setDefaultCommand(armStop);
@@ -89,15 +99,20 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
+
+    /*switch(autoMode) {
+      case BALANCE:
+        return auto.Balance(this.ourTrain);
+      case SHOOT:
+        return auto.Shoot();
+      case SHOOT_BALANCE:
+        return auto.ShootBalance();
+      case MULTI_SHOOT_BALANCE:
+        return auto.MultiShootBalance();
+      default:S
+        return auto.Shoot();
+    }*/
     return balance;
-  }
-
-  public AutoMode getAutoMode() {
-    return this.autoMode;
-  }
-
-  public void setAutoMode(AutoMode newAutoMode) {
-    this.autoMode = newAutoMode;
   }
 
 }

@@ -5,13 +5,22 @@ import frc.robot.subsystems.Arm;
 
 public class ArmOut extends CommandBase {
   private Arm arm;
-  public ArmOut(Arm arm) {
+  private double lsetpoint;
+  private double rsetpoint;
+  private double ldist;
+  private double rdist;
+  public ArmOut(Arm arm, double lset, double rset) {
     this.arm = arm;
+    ldist = lset;
+    rdist = rset;
     addRequirements(arm);
   }
 
   @Override
-  public void initialize() {}
+  public void initialize() {
+    lsetpoint = arm.getleftarmcounts() + ldist;
+    rsetpoint = arm.getrightarmcounts() + rdist;
+  }
 
   @Override
   public void execute() {
@@ -25,12 +34,11 @@ public class ArmOut extends CommandBase {
 
   @Override
   public boolean isFinished() {
-   /* if (arm.getleftarmcounts() >= lsetpoint || arm.getrightarmcounts() >= rsetpoint){
+    if (arm.getleftarmcounts() >= lsetpoint || arm.getrightarmcounts() >= rsetpoint){
       return true;
     }
     else{
     return false;
-    }/* */
-    return false;
+    }
   }
 }
